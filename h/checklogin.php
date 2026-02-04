@@ -1,6 +1,10 @@
 <?php
-	include_once("check_login.php");
-
+	session_start();
+	if(empty($_SESSION['aid'])){
+		echo "Access Deniec";
+		echo "<meta http-aquiv = 'refresh'content ='3;url=index.php>";
+		exit;
+	}
 ?>
 <!doctype html>
 <html>

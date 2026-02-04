@@ -6,16 +6,16 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>หน้าหลักแอดมิน - พิชญาณัฏฐ์ </title>
+<title>จัดการออเดอร์- พิชญาณัฏฐ์ </title>
 </head>
 
 <body>
-<h1>หน้าหลักแอดมิน- พิชญาณัฏฐ์ </h1>
+<h1>จัดการออเดอร์- พิชญาณัฏฐ์ </h1>
 <?php echo "แอดมิน: ".$_SESSION['aname'];?><br>
 <ul>
 	<a href="products.php"><li>จัดการสินค้า</li></a>
-    <a href="orders.php"><li>จัดการสินค้า</li></a>
-    <a href="costomers.php"><li>จัดการสินค้า</li></a>
+    <a href="orders.php"><li>จัดการออเดอร์</li></a>
+    <a href="costomers.php"><li>จัดการลูกค้า</li></a>
     <a href="logout.php"><li>ออกจากระบบ</li></a>
 </ul>
 </body>
