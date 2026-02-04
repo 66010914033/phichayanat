@@ -11,8 +11,8 @@
 <body>
 <h1>เข้าสู่ระบบหลังบ้าน - พิชญาณัฏฐ์ </h1>
 <form method="post" action="">
-Username gr<br>
-Password ggh<br>
+Username <input type="text" name="auser" autofocus required><br>
+Password <input type="password" name="apwd"  required><br>
 <button type ="submit" name="Submit">LOGIN</button>
 </form>
 <?php
@@ -27,7 +27,7 @@ if(isset($_POST['Submit'])) {
 		$_SESSION['aid']=$data['a_id'];
 		$_SESSION['aname']=$data['a_name'];
 		echo"<script>";
-		echo"<windown.location='index2.php');";
+		echo"(windown.location='index2.php');";
 		echo"</script>";
 	}else{
 		echo"<script>";
