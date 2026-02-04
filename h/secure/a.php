@@ -14,7 +14,7 @@
 	$_SESSION['name']="พิชญาณัฏฐ์ รินทร์วงค์";
 	$_SESSION['nickname'] = "อินเตอร์";
 	$_SESSION['p1']= "พวงกุญแจ";
-	 $_SESSION['p2'] = "การ์ด";
+	$_SESSION['p2'] = "การ์ด";
 
 ?>
 </body>
