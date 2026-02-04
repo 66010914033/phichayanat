@@ -1,99 +1,84 @@
 <?php
 session_start();
+
+// ตรวจสอบว่าได้ล็อกอินหรือยัง ถ้าไม่มี Session ให้เด้งกลับไปหน้า login
+if (!isset($_SESSION['aid'])) {
+    header("Location: index.php"); // ใช้ header แทน script เพื่อความรวดเร็ว
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="th">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>เข้าสู่ระบบ - พิชญาณัฏฐ์</title>
+    <title>หน้าหลักแอดมิน - พิชญาณัฏฐ์</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #fce4ec; /* ชมพูอ่อน */
-            font-family: 'Sarabun', sans-serif;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-card {
+        body { background-color: #fce4ec; font-family: 'Sarabun', sans-serif; }
+        .navbar { background-color: #f06292 !important; }
+        .card-menu {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+            transition: 0.3s;
+            text-decoration: none;
+            color: #d81b60;
+            background: white;
         }
-        .btn-pink {
-            background-color: #f06292;
-            color: white;
-            border: none;
+        .card-menu:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(240, 98, 146, 0.2);
+            color: #ec407a;
         }
-        .btn-pink:hover {
-            background-color: #ec407a;
-            color: white;
+        .icon-circle {
+            width: 60px; height: 60px;
+            background: #fce4ec;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
         }
-        .form-control:focus {
-            border-color: #f06292;
-            box-shadow: 0 0 0 0.25 margin-top: 1rem;rem rgba(240, 98, 146, 0.25);
-        }
-        .text-pink { color: #d81b60; }
     </style>
 </head>
-
 <body>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card login-card p-4">
-                <div class="card-body">
-                    <h3 class="text-center mb-4 text-pink fw-bold">เข้าสู่ระบบหลังบ้าน</h3>
-                    <p class="text-center text-muted mb-4 small">พิชญาณัฏฐ์ รินทร์วงค์</p>
-                    
-                    <form method="post" action="">
-                        <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input type="text" name="auser" class="form-control" placeholder="ชื่อผู้ใช้งาน" autofocus required>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Password</label>
-                            <input type="password" name="apwd" class="form-control" placeholder="รหัสผ่าน" required>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" name="Submit" class="btn btn-pink py-2 fw-bold">LOGIN</button>
-                        </div>
-                    </form>
+<nav class="navbar navbar-dark shadow-sm mb-5">
+    <div class="container">
+        <span class="navbar-brand fw-bold">ADMIN PANEL</span>
+        <span class="text-white small">แอดมิน: <?php echo htmlspecialchars($_SESSION['aname']); ?></span>
+    </div>
+</nav>
 
-                    <?php
-                    if(isset($_POST['Submit'])) {
-                        include_once("connectdb.php");
-                        
-                        $user = $_POST['auser'];
-                        $pwd = $_POST['apwd'];
+<div class="container text-center">
+    <h2 class="fw-bold mb-2 text-pink" style="color: #d81b60;">หน้าหลักแอดมิน - พิชญาณัฏฐ์</h2>
+    <p class="text-muted mb-5">เลือกเมนูที่ต้องการจัดการ</p>
 
-                        // 1. ใช้ Prepared Statement เพื่อป้องกัน SQL Injection
-                        $stmt = mysqli_prepare($conn, "SELECT a_id, a_name, a_password FROM admin WHERE a_username = ? LIMIT 1");
-                        mysqli_stmt_bind_param($stmt, "s", $user);
-                        mysqli_stmt_execute($stmt);
-                        $result = mysqli_stmt_get_result($stmt);
-                        
-                        if($data = mysqli_fetch_array($result)){
-                            // 2. ตรวจสอบรหัสผ่านที่เข้ารหัสไว้ (Password Hashing)
-                            if(password_verify($pwd, $data['a_password'])) {
-                                $_SESSION['aid'] = $data['a_id'];
-                                $_SESSION['aname'] = $data['a_name'];
-                                
-                                echo "<script>window.location='index2.php';</script>";
-                            } else {
-                                echo "<div class='alert alert-danger mt-3 text-center small'>รหัสผ่านไม่ถูกต้อง</div>";
-                            }
-                        } else {
-                            echo "<div class='alert alert-danger mt-3 text-center small'>ไม่พบชื่อผู้ใช้งานนี้</div>";
-                        }
-                    }
-                    ?>
-                </div>
-            </div>
+    <div class="row g-4 justify-content-center">
+        <div class="col-6 col-md-3">
+            <a href="products.php" class="card card-menu p-4 shadow-sm h-100">
+                <div class="icon-circle"><i class="bi bi-box-seam"></i></div>
+                <h5 class="fw-bold m-0">จัดการสินค้า</h5>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a href="orders.php" class="card card-menu p-4 shadow-sm h-100">
+                <div class="icon-circle"><i class="bi bi-cart-check"></i></div>
+                <h5 class="fw-bold m-0">จัดการออเดอร์</h5>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a href="costomers.php" class="card card-menu p-4 shadow-sm h-100">
+                <div class="icon-circle"><i class="bi bi-people"></i></div>
+                <h5 class="fw-bold m-0">จัดการลูกค้า</h5>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a href="logout.php" class="card card-menu p-4 shadow-sm h-100 text-danger" onclick="return confirm('ต้องการออกจากระบบ?')">
+                <div class="icon-circle" style="background: #ffebee;"><i class="bi bi-box-arrow-right"></i></div>
+                <h5 class="fw-bold m-0">ออกจากระบบ</h5>
+            </a>
         </div>
     </div>
 </div>
