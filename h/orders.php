@@ -11,6 +11,7 @@
 
 <body>
 <h1>จัดการออเดอร์- พิชญาณัฏฐ์ </h1>
+
 <?php echo "แอดมิน: ".$_SESSION['aname'];?><br>
 <ul>
 	<a href="products.php"><li>จัดการสินค้า</li></a>
