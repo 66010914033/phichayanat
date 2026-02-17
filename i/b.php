@@ -8,7 +8,7 @@
 <h1>งาน i  -- พิชญาณัฏฐ์ รินทร์วงค์ (อินเตอร์)</h1>
 
 <form method="post" action="" enctype="multipart/form-data">
-    ชื่อจังหวัด <input type="text" name="pname" autofocus required>
+    ชื่อจังหวัด <input type="text" name="pname" autofocus required><br>
     รูปภาพ <input type ="file" name="pimage" required><br>
 
     ภาค
