@@ -9,7 +9,20 @@
 
 <form method="post" action="" enctype="multipart/form-data">
     ชื่อจังหวัด <input type="text" name="pname" autofocus required>
-    รูป<input type ="file" name="pimage" require><br>
+    รูปภาพ<input type ="file" name="pimage" require><br>
+
+    ภาค
+    <select name="rid">
+    <?php
+    include_once("connectdb.php");
+    $sql3 = "SELECT * FROM 'regions'";
+    $rs3 = mysqli_query($conn,$sql3);
+    while ($data3 = mysqli_fetch_array($rs3)){
+    ?>
+        <option value='' <?php echo $data3['r_id'];?>"<?php echo $data3['r_name']?></option>
+
+    </SELECT>
+    <br>
     <button type="submit" name="Submit">บันทึก</button>
 </form>
 <br><br>
@@ -18,10 +31,13 @@
 include_once("connectdb.php");
 
 if(isset($_POST['Submit'])){
-    $rname = $_POST['pname'];   // รับค่าจากฟอร์ม
-
-    $sql2 = "INSERT INTO regions (p_id, p_name) VALUES (NULL, '$pname')";
-    mysqli_query($conn, $sql2);
+    $pname = $_POST['pname'];   // รับค่าจากฟอร์ม
+    $ext=pathinfo($_FILES['pimage']['name'],PATHINFO_EXTENSION);
+    $rid=$_POST['rid'];
+    $sql2 = "INSERT INTO 'provinces'VALUES (NULL,'{$pname}', '{$ext}','{$rid}')";
+    mysqli_query($conn, $sql2) or die ("เพิ่มข้อมมูลไม่ได้");
+    $pid = mysqli_insert_id($conn);
+    copy($_FILES['pimage']['tmp_name'],"img/".$pid.".".);
 }
 ?>
 
