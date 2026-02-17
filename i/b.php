@@ -45,7 +45,7 @@ if(isset($_POST['Submit'])){
 
     $pid = mysqli_insert_id($conn);
 
-    copy($_FILES['pimage']['tmp_name'], "img/".$pid.".".$ext);
+    move_uploaded_file($_FILES['pimage']['tmp_name'], "img/".$pid.".".$ext);
 }
 ?>
 
@@ -66,8 +66,8 @@ while ($data = mysqli_fetch_array($rs)){
     <tr>
         <td><?php echo $data['p_id']; ?></td>
         <td><?php echo $data['p_name']; ?></td>
-        <td>
-            <img src="img/<?php echo $data['p_id']; ?>.<?php echo $data['p_ext']; ?>" width="140">
+        <td><?php echo $data['xxx']; ?></td>
+        <td><img src="img/<?php echo $data['p_id']; ?>.<?php echo $data['p_ext']; ?>" width="140">
         </td>
         <td width="80" align="center">
             <a href ="delete_provinces.php?id=<?php echo $data['p_id']; ?>"
