@@ -17,9 +17,9 @@
 include_once("connectdb.php");
 
 if(isset($_POST['Submit'])){
-    $rname = $_POST['rname'];   // รับค่าจากฟอร์ม
+    $rname = $_POST['pname'];   // รับค่าจากฟอร์ม
 
-    $sql2 = "INSERT INTO regions (r_id, r_name) VALUES (NULL, '$rname')";
+    $sql2 = "INSERT INTO regions (p_id, p_name) VALUES (NULL, '$pname')";
     mysqli_query($conn, $sql2);
 }
 ?>
@@ -39,10 +39,10 @@ $rs = mysqli_query($conn,$sql);
 while ($data = mysqli_fetch_array($rs)){
 ?>
     <tr>
-        <td><?php echo $data['r_id']; ?></td>
-        <td><?php echo $data['r_name']; ?></td>
-        <td><img src="img/<?php echo $data['r_id']; ?>.jpg" width="140"> </td>
-        <td width="80" align="center"><a href ="delete_regions.php?id=<?php echo$data['r_id'];?>"onClick="return confirm('ยืนยันการลบข้อมูลไหม?');"><img src="img/delete.png" width="20">
+        <td><?php echo $data['p_id']; ?></td>
+        <td><?php echo $data['p_name']; ?></td>
+        <td><img src="img/<?php echo $data['p_id']; ?>.<?php echo $data['p_ext']; ?>" width="140"> </td>
+        <td width="80" align="center"><a href ="delete_regions.php?id=<?php echo$data['p_id'];?>"onClick="return confirm('ยืนยันการลบข้อมูลไหม?');"><img src="img/delete.png" width="20">
         </td>
     </tr>
 <?php } ?>
