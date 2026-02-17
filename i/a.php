@@ -41,7 +41,7 @@ while ($data = mysqli_fetch_array($rs)){
         <td><?php echo $data['r_id']; ?></td>
         <td><?php echo $data['r_name']; ?></td>
         <td width="80" align="center">
-            <img src="img/1.jpg" width="20">
+            <img src="img/delete.png" width="20">
         </td>
     </tr>
 <?php } ?>
