@@ -66,7 +66,6 @@ while ($data = mysqli_fetch_array($rs)){
     <tr>
         <td><?php echo $data['p_id']; ?></td>
         <td><?php echo $data['p_name']; ?></td>
-        <td><?php echo $data['xxx']; ?></td>
         <td><img src="img/<?php echo $data['p_id']; ?>.<?php echo $data['p_ext']; ?>" width="140">
         </td>
         <td width="80" align="center">
