@@ -7,6 +7,6 @@ $sql = "DELETE FROM province WHERE p_id = '{$id}'";
 mysqli_query($conn, $sql) or die ("ลบข้อมูลไม่ได้");
 
 echo "<script>";
-echo "window.location='a.php';";
+echo "window.location='b.php';";
 echo "</script>";
 ?>
