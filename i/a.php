@@ -2,38 +2,54 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>งาน i  -- พิชญาณัฏฐ์	 รินทร์วงค์</title>
+<title>งาน i  -- พิชญาณัฏฐ์ รินทร์วงค์ (อินเตอร์)</title>
 </head>
-
 <body>
-<h1>งาน i  -- พิชญาณัฏฐ์	 รินทร์วงค์</h1>
+<h1>งาน i  -- พิชญาณัฏฐ์ รินทร์วงค์ (อินเตอร์)</h1>
+
+<form method="post" action="">
+    ชื่อภาค <input type="text" name="rname" autofocus required>
+    <button type="submit" name="Submit">บันทึก</button>
+</form>
+<br><br>
+
 <?php
+include_once("connectdb.php");
 
-    echo $data['r_id']."<br>";
-    echo $data['r_name']."<hr>";
+if(isset($_POST['Submit'])){
+    $rname = $_POST['rname'];   // รับค่าจากฟอร์ม
 
-
-mysqli_close($conn);
+    $sql2 = "INSERT INTO regions (r_id, r_name) VALUES (NULL, '$rname')";
+    mysqli_query($conn, $sql2);
+}
 ?>
-<table border ="1">
+
+<table border="1">
     <tr>
         <th>รหัสภาค</th>
         <th>ชื่อภาค</th>
+        <th>ลบ</th>
     </tr>
+
 <?php
-include_once("connectdb.php");
-$sql = "SELECT * FROM `regions`";
+$sql = "SELECT * FROM regions";
 $rs = mysqli_query($conn,$sql);
+
 while ($data = mysqli_fetch_array($rs)){
 ?>
     <tr>
-        <td><?php echo $data['r_id'];?></td>
-        <td><?php echo $data['r_name'];?></td>
+        <td><?php echo $data['r_id']; ?></td>
+        <td><?php echo $data['r_name']; ?></td>
+        <td width="80" align="center">
+            <img src="img/1.jpg" width="20">
+        </td>
     </tr>
-<?php}?>
+<?php } ?>
+
 </table>
 </body>
+</html>
+
 <?php
 mysqli_close($conn);
 ?>
-</html>
