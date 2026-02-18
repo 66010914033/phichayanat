@@ -15,8 +15,8 @@
     <h3>66010914033</h3>
     <p>พิชญาณัฏฐ์ รินทร์วงค์</p>
 
-    <button class="btn-green" onclick="showImg('myPic')">เปิดรูปตัวเอง</button>
-    <button class="btn-orange" onclick="showImg('teacherPic')">เปิดรูปอาจารย์</button>
+    <button class="btn-green" onclick="showImg('myPic')">img src="img/2.jpg"</button>
+    <button class="btn-orange" onclick="showImg('teacherPic')">img src="img/1.jpg"</button>
 
     <br>
     <img id="myPic" src="https://via.placeholder.com/300?text=My+Photo" alt="รูปตัวเอง">
@@ -30,4 +30,5 @@
         }
     </script>
 </body>
+
 </html>
