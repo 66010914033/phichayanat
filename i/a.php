@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>งาน i  -- พิชญาณัฏฐ์ รินทร์วงค์ (อินเตอร์)</title>
+<title>งาน i  -- กาญจนาภรณ์ วินทะไชย (แตงกวา)</title>
 </head>
 <body>
-<h1>งาน i  -- พิชญาณัฏฐ์ รินทร์วงค์ (อินเตอร์)</h1>
+<h1>งาน i  -- กาญจนาภรณ์ วินทะไชย (แตงกวา)</h1>
 
 <form method="post" action="">
     ชื่อภาค <input type="text" name="rname" autofocus required>
@@ -37,11 +37,19 @@ $rs = mysqli_query($conn,$sql);
 
 while ($data = mysqli_fetch_array($rs)){
 ?>
-    <tr>
-        <td><?php echo $data['r_id']; ?></td>
-        <td><?php echo $data['r_name']; ?></td>
-        <td width="80" align="center"><a href ="delete_regions.php?id=<?php echo$data['r_id'];?>"onClick="return confirm('ยืนยันการลบข้อมูลไหม?');"><img src="img/delete.png" width="20">
-        </td>
+    <tr
+    ><td><?php echo $data['r_id']; ?></td>
+<td><?php echo $data['r_name']; ?></td>
+<td width="80" align="center">
+<a href="delete_region.php?id=<?php echo $data['r_id']; ?>"
+   onclick="return confirm('ยืนยันการลบข้อมูลไหม?');">
+    <img src="img/1.png" width="20">
+</a>
+</td>
+
+</td>
+
+
     </tr>
 <?php } ?>
 
