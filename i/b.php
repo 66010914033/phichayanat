@@ -1,18 +1,30 @@
 <?php
 include 'connectdb.php';
 
-// 1. ย้ายส่วน INSERT มาไว้ข้างบนสุด (แก้แค่จุดนี้จุดเดียวที่เหลือเหมือนเดิม)
 if (isset($_POST['Submit'])) {
+
     $pname = $_POST['pname'];
-    $rid = $_POST['rid'];
-    $pimage = $_FILES['pimage']['name'];
-    $ext = pathinfo($_FILES['pimage']['name'], PATHINFO_EXTENSION);
-    
-    $sql2 = "INSERT INTO provinces (p_id, p_name, p_ext, r_id) VALUES (NULL, '$pname', '$ext', '$rid')";
-    mysqli_query($conn, $sql2) or die ("เพิ่มข้อมูลไม่ได้");
-    
-    $pid = mysqli_insert_id($conn);
-    move_uploaded_file($_FILES['pimage']['tmp_name'], "img/".$pid.".".$ext);
+    $rid   = $_POST['rid'];
+
+    // ตรวจสอบไฟล์รูปภาพ
+    $ext = strtolower(pathinfo($_FILES['pimage']['name'], PATHINFO_EXTENSION));
+    $allowed = array("jpg","jpeg","png","gif");
+
+    if (in_array($ext,$allowed)) {
+
+        $sql2 = "INSERT INTO provinces (p_id, p_name, p_ext, r_id) 
+                 VALUES (NULL, '$pname', '$ext', '$rid')";
+
+        mysqli_query($conn, $sql2) or die ("เพิ่มข้อมูลไม่ได้");
+
+        $pid = mysqli_insert_id($conn);
+
+        move_uploaded_file($_FILES['pimage']['tmp_name'], 
+                           "img/".$pid.".".$ext);
+
+    } else {
+        echo "<script>alert('กรุณาอัปโหลดไฟล์รูปภาพประเภท jpg, jpeg, png หรือ gif เท่านั้น');</script>";
+    }
 }
 ?>
 
@@ -30,21 +42,24 @@ if (isset($_POST['Submit'])) {
     รูปภาพ <input type="file" name="pimage" required>
     ภาค 
 
-    <select name="rid">
+    <select name="rid" required>
         <option value="">-- เลือกภาค --</option>
         <?php
-        // include 'connectdb.php'; // ไม่ต้องใส่ซ้ำเพราะใส่ไว้ข้างบนแล้ว
         $sql3 = "SELECT * FROM regions";
         $rs3 = mysqli_query($conn, $sql3);
         while ($data3 = mysqli_fetch_array($rs3)) {
         ?>
-        <option value="<?php echo $data3['r_id'] ?>"><?php echo $data3['r_name'] ?></option>
+        <option value="<?php echo $data3['r_id'] ?>">
+            <?php echo $data3['r_name'] ?>
+        </option>
         <?php
         }
         ?>
     </select>
     <button type="submit" name="Submit">บันทึก</button>
-</form> <br><br>
+</form>
+
+<br><br>
 
 <table border="1">
     <tr>
@@ -55,22 +70,33 @@ if (isset($_POST['Submit'])) {
     </tr>
 
 <?php
-// ดึงข้อมูลมาแสดงผล
-$sql = "SELECT * FROM provinces INNER JOIN regions ON provinces.r_id = regions.r_id";
+$sql = "SELECT * FROM provinces 
+        INNER JOIN regions 
+        ON provinces.r_id = regions.r_id";
+
 $rs = mysqli_query($conn, $sql);
+
 while ($data = mysqli_fetch_array($rs)) {
 ?>
     <tr>
-    <td><?php echo $data['p_id'] ?></td>
-    <td><?php echo $data['p_name'] ?></td>
-    <td><img src="img/<?php echo $data['p_id'] ?>.<?php echo $data['p_ext'] ?>" width="150" ></td>
-    <td align="center"><a href="delete_province.php?id=<?php echo $data['p_id'] ?>&ext=<?php echo $data['p_ext'] ?>" 
-    onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่')"><img src="img/delete.png" width="25" height="25"></td>
+        <td><?php echo $data['p_id'] ?></td>
+        <td><?php echo $data['p_name'] ?></td>
+        <td>
+            <img src="img/<?php echo $data['p_id'].".".$data['p_ext']; ?>" 
+                 width="150">
+        </td>
+        <td align="center">
+            <a href="delete_province.php?id=<?php echo $data['p_id'] ?>&ext=<?php echo $data['p_ext'] ?>" 
+            onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่')">
+            <img src="img/delete.png" width="25" height="25">
+            </a>
+        </td>
     </tr>
 <?php
 }
 mysqli_close($conn);
 ?>
+
 </table>
 
 </body>
