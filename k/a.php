@@ -15,11 +15,25 @@
     <h3>66010914033</h3>
     <p>พิชญาณัฏฐ์ รินทร์วงค์</p>
 
-   <button class="btn-green" onclick="showImg('myPic')">แสดงรูป 2</button>
+ <style>
+.center-img {
+    display: none;
+    margin: 20px auto;
+    display: block;
+    max-width: 300px; /* ปรับขนาดได้ตามต้องการ */
+}
+.img-container {
+    text-align: center;
+}
+</style>
+
+<button class="btn-green" onclick="showImg('myPic')">แสดงรูป 2</button>
 <button class="btn-orange" onclick="showImg('teacherPic')">แสดงรูป 1</button>
 
-<img id="myPic" src="img/2.jpg" style="display:none;">
-<img id="teacherPic" src="img/1.jpg" style="display:none;">
+<div class="img-container">
+    <img id="myPic" src="img/2.jpg" class="center-img" style="display:none;">
+    <img id="teacherPic" src="img/1.jpg" class="center-img" style="display:none;">
+</div>
 
 <script>
 function showImg(id) {
@@ -32,5 +46,6 @@ function showImg(id) {
 </body>
 
 </html>
+
 
 
