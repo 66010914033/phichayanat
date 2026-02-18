@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>งาน i  -- กาญจนาภรณ์ วินทะไชย (แตงกวา)</title>
+<title>งาน i  -- พิชญาณัฏฐ์ รินทร์วงค์ (อินเตอร์)</title>
 </head>
 <body>
-<h1>งาน i  -- กาญจนาภรณ์ วินทะไชย (แตงกวา)</h1>
+<h1>งาน i  -- พิชญาณัฏฐ์ รินทร์วงค์ (อินเตอร์)</h1>
 
 <form method="post" enctype="multipart/form-data">
     ชื่อจังหวัด <input type="text" name="pname" autofocus required>
