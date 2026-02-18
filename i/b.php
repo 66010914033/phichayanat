@@ -57,6 +57,7 @@ if (isset($_POST['Submit'])) {
 $sql = "SELECT * FROM provinces INNER JOIN regions ON provinces.r_id = regions.r_id";
 $rs = mysqli_query($conn, $sql);
 while ($data = mysqli_fetch_array($rs)) {
+    $image_src = "img/" . $data['p_id'] . "." . $data['p_ext'];
 ?>
     <tr>
     <td><?php echo $data['p_id'] ?></td>
