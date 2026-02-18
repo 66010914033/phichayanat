@@ -52,20 +52,41 @@ if (isset($_POST['Submit'])) {
         <th>Delete</th>   
     </tr>
 
-<?php
-
+    <?php
 $sql = "SELECT * FROM provinces INNER JOIN regions ON provinces.r_id = regions.r_id";
 $rs = mysqli_query($conn, $sql);
 while ($data = mysqli_fetch_array($rs)) {
-    $image_src = "img/" . $data['p_id'] . "." . $data['p_ext'];
 ?>
     <tr>
-    <td><?php echo $data['p_id'] ?></td>
-    <td><?php echo $data['p_name'] ?></td>
-    <td><img src="img/<?php echo $data['p_id'] ?>.<?php echo $data['p_ext'] ?>" width="150">
-    <td align="center"><a href="delete_province.php?id=<?php echo $data['p_id'] ?>&ext=<?php echo $data['p_ext'] ?>" 
-    onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่')"><img src="img/delete.jpg" width="25" height="25"></td>
+        <td><?php echo $data['p_id'] ?></td>
+        <td><?php echo $data['p_name'] ?></td>
+        
+        <td align="center">
+            <?php 
+            $p_id = $data['p_id'];
+            $p_ext = $data['p_ext'];
+            $image_path = "img/" . $p_id . "." . $p_ext;
+
+            if (!file_exists($image_path)) {
+                if (file_exists("img/$p_id.jpg")) {
+                    $image_path = "img/$p_id.jpg";
+                } elseif (file_exists("img/$p_id.png")) {
+                    $image_path = "img/$p_id.png";
+                }
+            }
+            ?>
+            <img src="<?php echo $image_path; ?>" width="100" onerror="this.src='img/delete.jpg';">
+        </td>
+        <td align="center">
+            <a href="delete_province.php?id=<?php echo $data['p_id'] ?>&ext=<?php echo $data['p_ext'] ?>" 
+               onclick="return confirm('คุณต้องการลบข้อมูลนี้หรือไม่')">
+               <img src="img/delete.jpg" width="25" height="25">
+            </a>
+        </td>
     </tr>
+<?php
+}
+?>
 <?php
 }
 ?>
